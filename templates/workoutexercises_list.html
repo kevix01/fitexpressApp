@@ -1,0 +1,36 @@
+{% extends "base_exercise.html" %}
+
+{% block title %}FitExpress App - Manage workout{% endblock title %}
+
+{% block content %}
+    {% if user.get_username == workout.get_author or workout.get_author == "FitExpress"%}
+        {% if workoutexercises.count == 0 %}
+            <h4>There are no exercises in this workout.</h4>
+            <p><br><a class="btn btn-primary" href="{% url 'workoutexercise_new' workout.pk %}" role="button">Add new one!</a></p>
+        {% else %}
+            {% for workoutexercise in workoutexercises %}
+                <div class="card">
+                  <div class="card-header">
+                    <span class="fw-bold">
+                      <a href="#">{{ workoutexercise.exercise.title }}</a>
+                    </span> &middot;
+                    <span class="text-muted">Muscle Group: {{ workoutexercise.exercise.muscle_group }}</span>
+                  </div>
+                  <div class="card-body">
+                    Number of repetitions: {{ workoutexercise.repetitions }} <br>
+                    Calories burned: {{ workoutexercise.kcal_tot }}
+                  </div>
+                  <div class="card-footer text-center text-muted">
+                    {% if not workout.get_author == "FitExpress" %}
+                    <a href="{% url 'workoutexercise_edit' workout.pk workoutexercise.pk %}">Edit</a>
+                    <a href="{% url 'workoutexercise_delete' workout.pk workoutexercise.pk %}">Delete</a>
+                    {% else %}
+                        Exercise {{ forloop.counter }}
+                    {% endif %}
+                  </div>
+                </div>
+                <br />
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+{% endblock content %}

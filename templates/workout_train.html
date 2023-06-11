@@ -1,0 +1,92 @@
+{% extends "base_workout.html" %}
+
+{% block title %}FitExpress App - Training{% endblock title %}
+
+{% block content %}
+    {% if exercises.count > 0 %}
+    <form action="" method="post">{% csrf_token %}
+    <h2>Workout started: "{{ workout.title }}"</h2>
+    <h6>Tip: remember to take a short break between exercises!</h6>
+    <div id="CarouselWithControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                {% for exercise in exercises %}
+                    {% if forloop.first %}
+                      <div class="carousel-item {% if forloop.first %} active {% endif %}">
+                       <div class="card">
+                        <div class="card-header">
+                        <span class="fw-bold">
+                          <a href="#">{{ exercise.exercise.title }}</a>
+                        </span> &middot;
+                        <span class="text-muted">Muscle Group: {{ exercise.exercise.muscle_group }}</span>
+                      </div>
+                      <div class="card-body">
+                        Number of repetitions: {{ exercise.repetitions }} <br>
+                        Calories burned: {{ exercise.kcal_tot }}
+                      </div>
+                      <div class="card-footer text-center text-muted">
+                        Exercise number: {{ forloop.counter}}
+                      </div>
+                        </div>
+                      </div>
+                    {% else %}
+                      <div class="carousel-item {% if  forloop.first %} active {% endif %}">
+                        <div class="card">
+                        <div class="card-header">
+                        <span class="fw-bold">
+                          <a href="#">{{ exercise.exercise.title }}</a>
+                        </span> &middot;
+                        <span class="text-muted">Muscle Group: {{ exercise.exercise.muscle_group }}</span>
+                      </div>
+                      <div class="card-body">
+                        Number of repetitions: {{ exercise.repetitions }} <br>
+                        Calories burned: {{ exercise.kcal_tot }}
+                      </div>
+                      <div class="card-footer text-center text-muted">
+                        Exercise number: {{ forloop.counter}}
+                      </div>
+                        </div>
+                      </div>
+                    {% endif %}
+                {% endfor %}
+                    </div>
+
+                <a class="carousel-control-prev" href="#CarouselWithControls" role="button" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#CarouselWithControls" role="button" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </a>
+    </div>
+    <h5>Total number of exercises: {{ exercises.count }}</h5>
+    <br><button class="btn btn-primary btn-lg" type="submit">Complete Workout</button>
+    <p><br><a class="btn btn-secondary" href="{% url 'workoutlist' %}" role="button">Discard Workout</a></p>
+    </form>
+
+    {% else %}
+        <h4>Your workout doesn't have any exercises yet!</h4>
+         <p><br><a class="btn btn-primary" href="{% url 'workoutexercise_new' workout.pk %}" role="button">Add new exercise</a></p>
+    {% endif %}
+{% endblock content %}
+<style>
+.cards-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-inner {
+  padding: 1em;
+}
+.carousel-control-prev,
+.carousel-control-next {
+  background-color: #e1e1e1;
+  width: 5vh;
+  height: 5vh;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+</style>

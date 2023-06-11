@@ -1,0 +1,12 @@
+{% extends "base_exercise.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    {% if user.get_username == workout.get_author %}
+        <h3>Add new exercise</h3>
+        <form action="" method="post">{% csrf_token %}
+          {{ form|crispy }}
+          <button class="btn btn-success ml-2" type="submit">Save</button>
+        </form>
+    {% endif %}
+{% endblock content %}

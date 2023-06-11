@@ -1,0 +1,44 @@
+{% extends "base_goals.html" %}
+
+{% block title %}Articles{% endblock title %}
+
+{% block content %}
+<h2>My goals</h2>
+<br>
+{% for goal in goals_list %}
+{% if goal.author.pk == request.user.pk %}
+<div class="card">
+  <div class="card-header">
+    <span class="fw-bold">
+      <a href="#">{{ goal.title }}</a>
+    </span> &middot;
+    <span class="text-muted">by {{ goal.author }}
+            | Created: {{ goal.creation_date }}</span>
+  </div>
+  <div class="card-body">
+    {{ goal.description }} <br><br>
+    Status: {{ goal.status }} <br>
+    {% if goal.complete_date %}
+        Completed on: {{ goal.complete_date }}
+    {% else %}
+        {% if goal.estimated_finish_date <= today_date %}
+            <p style="color: red; font-weight: bold">Estimated finish on: {{ goal.estimated_finish_date }}</p>
+        {% else %}
+            <p>Estimated finish on: {{ goal.estimated_finish_date }}</p>
+        {% endif %}
+    {% endif %}
+  </div>
+  <div class="card-footer text-center text-muted">
+    {% if goal.author.pk == request.user.pk %} <!-- new -->
+    <a href="{% url 'goaldelete' goal.pk %}">Delete</a>
+    {% if goal.status == "Active" %}
+        <a href="{% url 'goaledit' goal.pk %}">Edit</a>
+        <a href="{% url 'goalcomplete' goal.pk %}">Mark as completed</a>
+    {% endif %}
+    {% endif %} <!-- new -->
+  </div>
+</div>
+<br />
+{% endif %}
+{% endfor %}
+{% endblock content %}

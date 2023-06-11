@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}FitExpress App - Standard Workouts{% endblock title %}
+
+{% block content %}
+<h2>Standard workouts</h2>
+<h6>Click workout name to see the exercises!</h6>
+<br>
+{% for workout in workout_list %}
+{% if workout.author.username == "FitExpress" %}
+<div class="card">
+  <div class="card-header">
+    <span class="fw-bold">
+      <a href="{% url 'workoutexercises' workout.pk %}">{{ workout.title }}</a>
+    </span> &middot;
+    <span class="text-muted">by FitExpress
+        {% if workout.last_training_date %}
+            | Last training: {{ workout.last_training_date }}</span>
+        {% endif %}
+  </div>
+  <div class="card-body">
+    {{ workout.description }}
+    <br>
+    Exercises: {{ workout.exercise_num }}
+    <br>
+    Total calories: {{ workout.kcal }}
+  </div>
+  <div class="card-footer text-center text-muted">
+    <a href="{% url 'workouttrain' workout.pk %}">Train</a>
+  </div>
+</div>
+<br />
+{% endif %}
+{% endfor %}
+{% endblock content %}

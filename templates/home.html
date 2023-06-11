@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}FitExpress App - Home{% endblock title %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    {% if user.active_goals > 0 %}
+        Hi {{ user.username }}! You have {{ user.active_goals }} goals to reach! Let's train!.
+        <p><br><a class="btn btn-primary btn-lg" href="{% url 'workoutlist' %}" role="button">My Workouts</a></p>
+        <p><a class="btn btn-info btn-lg" href="{% url 'workoutstandardlist' %}" role="button">Standard Workouts</a></p>
+    {% else %}
+        Hi {{ user.username }}! Let's set a goal before starting to train!
+        <p><br><a class="btn btn-primary btn-lg" href="{% url 'goalnew' %}" role="button">Set New Goal</a></p>
+        <p><br><a class="btn btn-secondary btn-lg" href="{% url 'workoutlist' %}" role="button">My Workouts</a></p>
+        <p><a class="btn btn-secondary btn-lg" href="{% url 'workoutstandardlist' %}" role="button">Standard Workouts</a></p>
+    {% endif %}
+<!-- new -->
+{% else %}
+<p>You are not logged in. Please create a new account or log in.</p>
+<a href="{% url 'login' %}">Log In</a> |
+<a href="{% url 'signup' %}">Sign Up</a>
+{% endif %}
+{% endblock content %}
