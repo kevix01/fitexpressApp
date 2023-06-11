@@ -21,7 +21,7 @@
                     Calories burned: {{ workoutexercise.kcal_tot }}
                   </div>
                   <div class="card-footer text-center text-muted">
-                    {% if not workout.get_author == "FitExpress" %}
+                    {% if not workout.get_author == "FitExpress" or user.username == "FitExpress"%}
                     <a href="{% url 'workoutexercise_edit' workout.pk workoutexercise.pk %}">Edit</a>
                     <a href="{% url 'workoutexercise_delete' workout.pk workoutexercise.pk %}">Delete</a>
                     {% else %}

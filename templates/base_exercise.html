@@ -20,7 +20,7 @@
       {% if user.is_authenticated %}
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center
           mb-md-0 ms-4">
-        {% if not workout.get_author == "FitExpress" %}
+        {% if not workout.get_author == "FitExpress" or user.username == "FitExpress" %}
             <li><a type="button" class="btn btn-outline-primary btn-sm" href="{% url "workoutexercise_new" workout.pk %}">New Exercise</a></li>
         {% endif %}
       </ul>

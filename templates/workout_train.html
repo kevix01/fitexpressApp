@@ -68,25 +68,21 @@
         <h4>Your workout doesn't have any exercises yet!</h4>
          <p><br><a class="btn btn-primary" href="{% url 'workoutexercise_new' workout.pk %}" role="button">Add new exercise</a></p>
     {% endif %}
+
+    <style>
+    .carousel-inner {
+      padding: 1em;
+    }
+    .carousel-control-prev,
+    .carousel-control-next {
+      background-color: #e1e1e1;
+      width: 5vh;
+      height: 5vh;
+      border-radius: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+
+    </style>
 {% endblock content %}
-<style>
-.cards-wrapper {
-  display: flex;
-  justify-content: center;
-}
-
-.carousel-inner {
-  padding: 1em;
-}
-.carousel-control-prev,
-.carousel-control-next {
-  background-color: #e1e1e1;
-  width: 5vh;
-  height: 5vh;
-  border-radius: 50%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-
-</style>
