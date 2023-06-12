@@ -1,8 +1,8 @@
-{% extends "base_workout.html" %}
+{% extends "base.html" %}
 {% load crispy_forms_tags %}
 
 {% block content %}
-<h3>Editing workout</h3>
+<h3>Update your weight</h3>
 <form action="" method="post">{% csrf_token %}
   {{ form|crispy }}
   <button class="btn btn-info ml-2" type="submit">Update</button>

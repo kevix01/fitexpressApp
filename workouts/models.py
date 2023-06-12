@@ -7,7 +7,7 @@ class Workout(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     exercise_num = models.PositiveIntegerField(default=0)
-    last_training_date = models.DateField(null=True)
+    last_training_date = models.DateField(null=True, blank=True)
     kcal = models.PositiveIntegerField(default=0)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,

@@ -43,11 +43,14 @@ class WorkoutTrainView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Workout
     fields = ()
     template_name = "workout_train.html"
-    success_url = reverse_lazy("workoutlist")
+    success_url = reverse_lazy("home")
 
     def test_func(self):  # new
         obj = self.get_object()
-        return obj.author == self.request.user
+        if obj.author.username != "FitExpress":
+            return obj.author == self.request.user
+        else:
+            return True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

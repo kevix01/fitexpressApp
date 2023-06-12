@@ -3,7 +3,7 @@
 
 {% block content %}
     {% if user.get_username == workout.get_author %}
-        <h3>Add new exercise</h3>
+        <h2>Add new exercise</h2>
         <form action="" method="post">{% csrf_token %}
           {{ form|crispy }}
           <button class="btn btn-success ml-2" type="submit">Save</button>

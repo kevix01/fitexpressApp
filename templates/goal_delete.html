@@ -3,7 +3,13 @@
 {% block content %}
 <h1>Delete</h1>
 <form action="" method="post">{% csrf_token %}
-  <p>Are you sure you want to delete goal "{{ goals.title }}"?</p>
-  <button class="btn btn-danger ml-2" type="submit">Confirm</button>
+    {% if goals.status == "Completed" %}
+        <p>Are you sure you want to delete goal "{{ goals.title }}" from the archive?</p>
+        <button class="btn btn-danger ml-2" type="submit">Confirm</button>
+    {% else %}
+        <p>Are you sure you want to delete your active goal "{{ goals.title }}"?</p>
+        <p>Deletion will result as a non completed goal.</p>
+        <button class="btn btn-danger ml-2" type="submit">Confirm</button>
+    {% endif %}
 </form>
 {% endblock content %}
