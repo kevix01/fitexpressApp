@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 
@@ -47,6 +48,11 @@ class WorkoutExercises(models.Model):
     exercise = models.ForeignKey(Exercises, on_delete=models.CASCADE)
     repetitions = models.PositiveIntegerField()
     kcal_tot = models.PositiveIntegerField()
+
+    def clean(self):
+        super().clean()
+        if not (self.repetitions > 0):
+            raise ValidationError('Repetitions number must be greater than zero!')
 
     def get_absolute_url(self):
         return reverse("workoutexercises", kwargs={"workout_pk": self.workout.pk})
